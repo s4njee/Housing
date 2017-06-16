@@ -3,13 +3,11 @@
 
 library(plyr)
 
-setwd("C:/MSDS 6306 Summer 2017/Live session 06")
-
 # http://www1.nyc.gov/site/finance/taxes/property-rolling-sales-data.page
 
 
 # read csv file
-bk <- read.csv("rollingsales_brooklyn.csv",skip=4,header=TRUE)
+bk <- read.csv("data/rollingsales_manhattan.csv",skip=4,header=TRUE)
 
 ## Check the data
 head(bk)
