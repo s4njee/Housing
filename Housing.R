@@ -44,8 +44,8 @@ manhattan.sale <- manhattan[manhattan$sale.price.n!=0,]
 png("analysis/grosssqftvssaleprice.png")
 plot(manhattan.sale$gross.sqft,manhattan.sale$sale.price.n)
 dev.off()
-plot(log10(manhattan.sale$gross.sqft),log10(manhattan.sale$sale.price.n))
 png("analysis/log10grosssqftvssaleprice.png")
+plot(log10(manhattan.sale$gross.sqft),log10(manhattan.sale$sale.price.n))
 dev.off()
 
 ## for now, let's look at 1-, 2-, and 3-family homes
