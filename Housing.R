@@ -41,17 +41,25 @@ detach(bk)
 ## keep only the actual sales
 
 bk.sale <- bk[bk$sale.price.n!=0,]
+png("analysis/grosssqftvssaleprice.png")
 plot(bk.sale$gross.sqft,bk.sale$sale.price.n)
+dev.off()
 plot(log10(bk.sale$gross.sqft),log10(bk.sale$sale.price.n))
+png("analysis/log10grosssqftvssaleprice.png")
+dev.off()
 
 ## for now, let's look at 1-, 2-, and 3-family homes
 bk.homes <- bk.sale[which(grepl("FAMILY",bk.sale$building.class.category)),]
 dim(bk.homes)
+png("analysis/log10grosssqftvssaleprice-123familyhomes.png")
 plot(log10(bk.homes$gross.sqft),log10(bk.homes$sale.price.n))
+dev.off()
 summary(bk.homes[which(bk.homes$sale.price.n<100000),])
 ""
 
 ## remove outliers that seem like they weren't actual sales
 bk.homes$outliers <- (log10(bk.homes$sale.price.n) <=5) + 0
 bk.homes <- bk.homes[which(bk.homes$outliers==0),]
+png("analysis/grosssqftvssaleprice-removedoutliers.png")
 plot(log10(bk.homes$gross.sqft),log10(bk.homes$sale.price.n))
+dev.off()
