@@ -7,12 +7,12 @@ library(plyr)
 
 
 # read csv file
-bk <- read.csv("data/rollingsales_manhattan.csv",skip=4,header=TRUE)
+manhattan <- read.csv("data/rollingsales_manhattan.csv",skip=4,header=TRUE)
 
 ## Check the data
-head(bk)
-summary(bk)
-str(bk) # Very handy function!
+head(manhattan)
+summary(manhattan)
+str(manhattan) # Very handy function!
 #Compactly display the internal structure of an R object.
 
 
@@ -22,36 +22,44 @@ str(bk) # Very handy function!
 ## start with digits. We use the gsub command to replace them with a blank space.
 # We create a new variable that is a "clean' version of sale.price.
 # And sale.price.n is numeric, not a factor.
-bk$SALE.PRICE.N <- as.numeric(gsub("[^[:digit:]]","", bk$SALE.PRICE))
-count(is.na(bk$SALE.PRICE.N))
+manhattan$SALE.PRICE.N <- as.numeric(gsub("[^[:digit:]]","", manhattan$SALE.PRICE))
+count(is.na(manhattan$SALE.PRICE.N))
 
-names(bk) <- tolower(names(bk)) # make all variable names lower case
+names(manhattan) <- tolower(names(manhattan)) # make all variable names lower case
 
 ## Get rid of leading digits
-bk$gross.sqft <- as.numeric(gsub("[^[:digit:]]","", bk$gross.square.feet))
-bk$land.sqft <- as.numeric(gsub("[^[:digit:]]","", bk$land.square.feet))
-bk$year.built <- as.numeric(as.character(bk$year.built))
+manhattan$gross.sqft <- as.numeric(gsub("[^[:digit:]]","", manhattan$gross.square.feet))
+manhattan$land.sqft <- as.numeric(gsub("[^[:digit:]]","", manhattan$land.square.feet))
+manhattan$year.built <- as.numeric(as.character(manhattan$year.built))
 
 ## do a bit of exploration to make sure there's not anything
 ## weird going on with sale prices
-attach(bk)
+attach(manhattan)
 hist(sale.price.n) 
-detach(bk)
+detach(manhattan)
 
 ## keep only the actual sales
 
-bk.sale <- bk[bk$sale.price.n!=0,]
-plot(bk.sale$gross.sqft,bk.sale$sale.price.n)
-plot(log10(bk.sale$gross.sqft),log10(bk.sale$sale.price.n))
+manhattan.sale <- manhattan[manhattan$sale.price.n!=0,]
+png("analysis/grosssqftvssaleprice.png")
+plot(manhattan.sale$gross.sqft,manhattan.sale$sale.price.n)
+dev.off()
+png("analysis/log10grosssqftvssaleprice.png")
+plot(log10(manhattan.sale$gross.sqft),log10(manhattan.sale$sale.price.n))
+dev.off()
 
 ## for now, let's look at 1-, 2-, and 3-family homes
-bk.homes <- bk.sale[which(grepl("FAMILY",bk.sale$building.class.category)),]
-dim(bk.homes)
-plot(log10(bk.homes$gross.sqft),log10(bk.homes$sale.price.n))
-summary(bk.homes[which(bk.homes$sale.price.n<100000),])
+manhattan.homes <- manhattan.sale[which(grepl("FAMILY",manhattan.sale$building.class.category)),]
+dim(manhattan.homes)
+png("analysis/log10grosssqftvssaleprice-123familyhomes.png")
+plot(log10(manhattan.homes$gross.sqft),log10(manhattan.homes$sale.price.n))
+dev.off()
+summary(manhattan.homes[which(manhattan.homes$sale.price.n<100000),])
 ""
 
 ## remove outliers that seem like they weren't actual sales
-bk.homes$outliers <- (log10(bk.homes$sale.price.n) <=5) + 0
-bk.homes <- bk.homes[which(bk.homes$outliers==0),]
-plot(log10(bk.homes$gross.sqft),log10(bk.homes$sale.price.n))
+manhattan.homes$outliers <- (log10(manhattan.homes$sale.price.n) <=5) + 0
+manhattan.homes <- manhattan.homes[which(manhattan.homes$outliers==0),]
+png("analysis/grosssqftvssaleprice-removedoutliers.png")
+plot(log10(manhattan.homes$gross.sqft),log10(manhattan.homes$sale.price.n))
+dev.off()
