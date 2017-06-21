@@ -5,10 +5,6 @@ date: "June 18, 2017"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Housing New York
 
 The Housing New York plan has financed 62,506 affordable homes since its inception in 2014 - breaking records for most new construction financed for a consecutive three years with 20,854 total homes financed.
