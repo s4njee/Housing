@@ -70,4 +70,38 @@ manhattan.homes <- manhattan.homes[which(manhattan.homes$outliers==0),]
 
 #plot data without outliers
 plot(log10(manhattan.homes$gross.sqft),log10(manhattan.homes$sale.price.n))
+## regression models below
+
+manhattan.homes <- manhattan.homes[which(manhattan.homes$outliers==0),]
+plot(log10(manhattan.homes$gross.sqft),log10(manhattan.homes$sale.price.n))
+
+model1 <- lm(log(sale.price.n) ~ log(gross.sqft),data=manhattan.homes)
+
+manhattan.homes[which(manhattan.homes$gross.sqft==0),]
+manhattan.homes <- manhattan.homes[which(manhattan.homes$gross.sqft>0 & manhattan.homes$land.sqft>0),]
+model1 <- lm(log(sale.price.n) ~ log(gross.sqft), data=manhattan.homes)
+summary(model1)
+
+plot(log(manhattan.homes$gross.sqft), log(manhattan.homes$sale.price.n))
+abline(model1,col="red", lwd=2)
+plot(resid(model1))
+
+model2<- lm(log(sale.price.n) ~ log(gross.sqft) + log(land.sqft) + factor(neighborhood),data=manhattan.homes)
+summary(model2)
+plot(resid(model2))
+
+model2a<- lm(log(sale.price.n) ~ 0 +log(gross.sqft) + log(land.sqft) + factor(neighborhood),data=manhattan.homes)
+summary(model2a)
+plot(resid(model2a))
+
+model3<- lm(log(sale.price.n) ~ log(gross.sqft)+ log(land.sqft)+ factor(neighborhood)+ factor(building.class.category),data=manhattan.homes)
+summary(model3)
+plot(resid(model3))
+
+model4 <- lm(log(sale.price.n) ~ log(gross.sqft)+ log(land.sqft)+ factor(neighborhood)+ factor(building.class.category),data=manhattan.homes)
+summary(model4)
+plot(resid(model4))
+
 ```
+
+
