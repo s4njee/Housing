@@ -5,7 +5,7 @@
 
 # read csv file
 library(readr)
-mp <- read.csv("rollingsales_manhattanproject.csv",skip=4,header=TRUE)
+mp <- read.csv("data/rollingsales_manhattan.csv",skip=4,header=TRUE)
 ## Check the data
 
 head(mp)
@@ -67,7 +67,9 @@ summary(model1)
 
 plot(log(mp.homes$gross.sqft), log(mp.homes$sale.price.n))
 abline(model1,col="red", lwd=2)
+png("analysis/model1.png")
 plot(resid(model1))
+dev.off()
 
 model2<- lm(log(sale.price.n) ~ log(gross.sqft) + log(land.sqft) + factor(neighborhood),data=mp.homes)
 summary(model2)
