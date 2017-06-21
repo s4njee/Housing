@@ -1,6 +1,6 @@
 ---
 title: "README.md"
-author: "Scott Herford"
+author: "Scott Herford, Adam Tschannen, Sanjee Yogeswaran"
 date: "June 18, 2017"
 output: html_document
 ---
@@ -24,21 +24,3 @@ The administration is ahead of schedule to reach its goal of creating or preserv
 New Yorkers can apply for affordable housing at   nyc.gov/housingconnect<https://a806-housingconnect.nyc.gov/nyclottery/lottery.html#home> or by calling 311.
 
 For more information on the Housing New York numbers, visit the Housing page <http://www1.nyc.gov/site/housing/action/housing.page>
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-## Purpose of Manhattan Rolling Sales Data Analysis
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
